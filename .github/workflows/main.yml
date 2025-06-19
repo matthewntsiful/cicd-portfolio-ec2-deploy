@@ -1,4 +1,4 @@
-name: Deploy Resume WebApp to EC2
+name: Deploy Portfolio WebApp to EC2
 
 on:
   push:
@@ -60,6 +60,11 @@ jobs:
             sudo systemctl restart apache2
             echo "Deployment completed successfully!"
 
+      - name: Notify Deployment Success
+        if: success()
+        run: echo "Deployment to EC2 completed successfully!"
 
 
-
+      - name: Notify Deployment Failure
+        if: failure()
+        run: echo "Deployment to EC2 failed!"
