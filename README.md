@@ -101,6 +101,15 @@ Add the following secrets to your GitHub repository:
 3. Create a webhook URL
 4. Add the webhook URL to GitHub secrets as `SLACK_WEBHOOK_URL`
 
+#### Test Slack Webhook
+
+```bash
+# Test your webhook URL
+curl -X POST -H 'Content-type: application/json' \
+  --data '{"text":"🚀 Test notification from Portfolio CI/CD"}' \
+  YOUR_SLACK_WEBHOOK_URL
+```
+
 ## 🚀 Deployment
 
 The deployment is fully automated through GitHub Actions:
