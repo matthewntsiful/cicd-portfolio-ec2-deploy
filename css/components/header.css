@@ -1,0 +1,83 @@
+/* Header Styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+header.scrolled {
+    padding: 15px 0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    font-size: 16px;
+    position: relative;
+    padding: 5px 0;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--dark);
+    cursor: pointer;
+}

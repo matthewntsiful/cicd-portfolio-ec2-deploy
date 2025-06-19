@@ -1,0 +1,68 @@
+/* Utility Classes */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
+
+.btn:hover {
+    background: var(--secondary);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    margin-left: 15px;
+    box-shadow: none;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.tag {
+    background: var(--gray);
+    color: var(--dark);
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gray);
+    color: var(--dark);
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-5px);
+}

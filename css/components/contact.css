@@ -1,0 +1,90 @@
+/* Contact Section */
+.contact-container {
+    display: flex;
+    gap: 50px;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.contact-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--dark);
+}
+
+.contact-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    align-items: flex-start;
+}
+
+.contact-item i {
+    font-size: 24px;
+    color: var(--primary);
+    margin-top: 5px;
+}
+
+.contact-text h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.contact-text p, .contact-text a {
+    color: #777;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-text a:hover {
+    color: var(--primary);
+}
+
+.contact-form {
+    flex: 1;
+    background: white;
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid var(--gray);
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
