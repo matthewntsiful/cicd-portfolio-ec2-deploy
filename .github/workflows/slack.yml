@@ -18,14 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Slack notification
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_CHANNEL: 'deployments'
-          SLACK_COLOR: ${{ inputs.status == 'success' && 'good' || 'danger' }}
-          SLACK_MESSAGE: |
-            ${{ inputs.workflow_name }} - ${{ inputs.status }}
-            Repository: ${{ github.repository }}
-            Branch: ${{ github.ref_name }}
-            Commit: ${{ github.sha }}
-            Author: ${{ github.actor }}
+        run: |
+          COLOR="${{ inputs.status == 'success' && 'good' || 'danger' }}"
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"attachments\": [{
+                \"color\": \"$COLOR\",
+                \"title\": \"${{ inputs.workflow_name }}\",
+                \"text\": \"Status: ${{ inputs.status }}\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nAuthor: ${{ github.actor }}\"
+              }]
+            }" \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
