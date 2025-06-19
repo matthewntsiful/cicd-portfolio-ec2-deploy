@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - .github/workflows/main.yml
+      - '**/*.md'
       - README.md
       - LICENSE
       - .gitignore
