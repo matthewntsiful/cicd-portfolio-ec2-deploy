@@ -98,4 +98,22 @@ jobs:
             sudo systemctl restart apache2
             echo "Deployment completed successfully!"
 
-      
+  notify-success:
+    needs: deploy
+    if: success()
+    uses: ./.github/workflows/slack.yml
+    with:
+      status: 'success'
+      workflow_name: 'Portfolio Deployment'
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  notify-failure:
+    needs: deploy
+    if: failure()
+    uses: ./.github/workflows/slack.yml
+    with:
+      status: 'failure'
+      workflow_name: 'Portfolio Deployment'
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

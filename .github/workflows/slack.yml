@@ -1,0 +1,32 @@
+name: Slack Notification
+
+on:
+  workflow_call:
+    inputs:
+      status:
+        required: true
+        type: string
+      workflow_name:
+        required: true
+        type: string
+    secrets:
+      SLACK_WEBHOOK_URL:
+        required: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ inputs.status }}
+          channel: '#deployments'
+          text: |
+            ${{ inputs.workflow_name }} - ${{ inputs.status }}
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
