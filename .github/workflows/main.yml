@@ -12,6 +12,7 @@ on:
       - README.md
       - LICENSE
       - .gitignore
+      - '.github/dependabot.yml'
  
   # Trigger the workflow on pull requests to the main branch
   pull_request:
@@ -26,8 +27,8 @@ jobs:
   deploy:
     # Environment variable to specify the environment
     environment: Production
-    # Only run the job on the main branch
-    if: github.ref == 'refs/heads/main'
+    # Only run the job on the main branch and exclude dependabot
+    if: github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
     # Name of the job
     name: Deploy to EC2
     # Run the job on an ubuntu-latest environment

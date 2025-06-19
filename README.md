@@ -1,9 +1,10 @@
 # 🚀 Portfolio CI/CD Deployment to EC2
 
-[![Deploy Portfolio WebApp to EC2](https://github.com/matthieu-ntsiful/cicd-portfolio-ec2-deploy/actions/workflows/main.yml/badge.svg)](https://github.com/matthieu-ntsiful/cicd-portfolio-ec2-deploy/actions/workflows/main.yml)
-[![GitHub last commit](https://img.shields.io/github/last-commit/matthieu-ntsiful/cicd-portfolio-ec2-deploy)](https://github.com/matthieu-ntsiful/cicd-portfolio-ec2-deploy/commits/main)
-[![GitHub repo size](https://img.shields.io/github/repo-size/matthieu-ntsiful/cicd-portfolio-ec2-deploy)](https://github.com/matthieu-ntsiful/cicd-portfolio-ec2-deploy)
-[![License](https://img.shields.io/github/license/matthieu-ntsiful/cicd-portfolio-ec2-deploy)](LICENSE)
+[![Deploy Portfolio WebApp to EC2](https://github.com/matthewntsiful/cicd-portfolio-ec2-deploy/actions/workflows/main.yml/badge.svg)](https://github.com/matthewntsiful/cicd-portfolio-ec2-deploy/actions/workflows/main.yml)
+[![GitHub last commit](https://img.shields.io/github/last-commit/matthewntsiful/cicd-portfolio-ec2-deploy)](https://github.com/matthewntsiful/cicd-portfolio-ec2-deploy/commits/main)
+[![GitHub repo size](https://img.shields.io/github/repo-size/matthewntsiful/cicd-portfolio-ec2-deploy)](https://github.com/matthewntsiful/cicd-portfolio-ec2-deploy)
+[![License](https://img.shields.io/github/license/matthewntsiful/cicd-portfolio-ec2-deploy)](LICENSE)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-brightgreen?logo=dependabot)](https://github.com/matthewntsiful/cicd-portfolio-ec2-deploy/network/updates)
 [![AWS](https://img.shields.io/badge/AWS-EC2-orange?logo=amazon-aws)](https://aws.amazon.com/ec2/)
 [![Apache](https://img.shields.io/badge/Apache-2.4-red?logo=apache)](https://httpd.apache.org/)
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-blue?logo=github-actions)](https://github.com/features/actions)
@@ -40,6 +41,7 @@ This project demonstrates a complete CI/CD pipeline that automatically deploys a
 - 🔒 **Security Hardened** - Proper file permissions and Apache security configuration
 - 🎨 **Modern UI/UX** - Clean, professional design with animations
 - 📊 **Reusable Workflows** - Modular GitHub Actions for notifications
+- 🤖 **Automated Updates** - Dependabot for keeping dependencies current
 
 ## 🏗️ Architecture
 
@@ -72,7 +74,7 @@ This project demonstrates a complete CI/CD pipeline that automatically deploys a
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/matthieu-ntsiful/cicd-portfolio-ec2-deploy.git
+git clone https://github.com/matthewntsiful/cicd-portfolio-ec2-deploy.git
 cd cicd-portfolio-ec2-deploy
 ```
 
@@ -143,9 +145,10 @@ The pipeline automatically configures Apache with:
 ```
 cicd-portfolio-ec2-deploy/
 ├── .github/
-│   └── workflows/
-│       ├── main.yml          # Main deployment workflow
-│       └── slack.yml         # Reusable Slack notification workflow
+│   ├── workflows/
+│   │   ├── main.yml          # Main deployment workflow
+│   │   └── slack.yml         # Reusable Slack notification workflow
+│   └── dependabot.yml        # Dependabot configuration
 ├── assets/
 │   └── images/               # Portfolio images
 ├── components/               # HTML components (legacy)
