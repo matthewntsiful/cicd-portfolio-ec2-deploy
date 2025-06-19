@@ -48,14 +48,52 @@ jobs:
             sudo systemctl daemon-reload
             sudo systemctl start apache2
             sudo systemctl enable apache2
-            cd home
+            
             # Remove existing contents of /var/www/html
             sudo rm -rf /var/www/html/*
-            # Move new files to /var/www/html
-            sudo mv * /var/www/html
-            # Set permissions for the web server
+            
+            # Copy new files to /var/www/html (fix the path issue)
+            sudo cp -r /home/${{ secrets.EC2_USER }}/* /var/www/html/
+            
+            # Create Apache configuration for CORS and proper file serving
+            sudo tee /etc/apache2/sites-available/portfolio.conf > /dev/null <<EOF
+            <VirtualHost *:80>
+                DocumentRoot /var/www/html
+                
+                # Enable CORS for all files
+                <Directory "/var/www/html">
+                    Header always set Access-Control-Allow-Origin "*"
+                    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS, DELETE, PUT"
+                    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+                    
+                    Options Indexes FollowSymLinks
+                    AllowOverride All
+                    Require all granted
+                </Directory>
+                
+                # Serve HTML files with proper MIME type
+                <FilesMatch "\\.html$">
+                    Header set Content-Type "text/html; charset=UTF-8"
+                </FilesMatch>
+                
+                # Enable mod_headers and mod_rewrite
+                LoadModule headers_module modules/mod_headers.so
+                LoadModule rewrite_module modules/mod_rewrite.so
+            </VirtualHost>
+            EOF
+            
+            # Enable required Apache modules
+            sudo a2enmod headers
+            sudo a2enmod rewrite
+            
+            # Enable the site
+            sudo a2ensite portfolio.conf
+            sudo a2dissite 000-default.conf
+            
+            # Set proper permissions
             sudo chown -R www-data:www-data /var/www/html
             sudo chmod -R 755 /var/www/html
+            
             # Restart Apache to apply changes
             sudo systemctl restart apache2
             echo "Deployment completed successfully!"
