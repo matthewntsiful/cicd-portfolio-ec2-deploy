@@ -1,5 +1,7 @@
 name: Deploy Portfolio WebApp to EC2
 
+# Trigger the workflow on push events to the main branch
+# Ignore changes to README files, LICENSE, and .gitignore
 on:
   push:
     branches:
@@ -10,43 +12,64 @@ on:
       - LICENSE
       - .gitignore
  
+  # Trigger the workflow on pull requests to the main branch
   pull_request:
-      branches:
-        - main
+    branches:
+      - main
+  # Allow the workflow to be triggered manually
   workflow_dispatch:
     
     
  
 jobs:
   deploy:
+    # Environment variable to specify the environment
     environment: Production
+    # Only run the job on the main branch
     if: github.ref == 'refs/heads/main'
+    # Name of the job
     name: Deploy to EC2
+    # Run the job on an ubuntu-latest environment
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the code in the repository
       - name: Checkout the files
         uses: actions/checkout@v4
 
+      # Deploy the code to the EC2 instance
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
         with:
+          # SSH key to use for deployment
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          # Hostname of the EC2 instance
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          # Username to use for deployment
           REMOTE_USER: ${{ secrets.EC2_USER }}
+          # Target directory on the EC2 instance
           TARGET: ${{ secrets.TARGET_DIR }}
 
+      # Execute remote ssh commands using the ssh key
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
+          # Hostname of the EC2 instance
           host: ${{ secrets.HOST_DNS }}
+          # Username to use for deployment
           username: ${{ secrets.EC2_USER }}
+          # SSH key to use for deployment
           key: ${{ secrets.EC2_SSH_KEY }}
+          # Script to execute on the remote server
           script: |
+            # Update the package list
             sudo apt-get -y update
+            # Install apache2
             sudo apt-get install -y apache2
+            # Reload the daemon and start apache2
             sudo systemctl daemon-reload
             sudo systemctl start apache2
+            # Enable apache2 to start on boot
             sudo systemctl enable apache2
             
             # Remove existing contents of /var/www/html
@@ -99,21 +122,29 @@ jobs:
             echo "Deployment completed successfully!"
 
   notify-success:
+    # Run this job if the deploy job is successful
     needs: deploy
     if: success()
+    # Use the slack notification workflow
     uses: ./.github/workflows/slack.yml
+    # Set the status and workflow name
     with:
       status: 'success'
       workflow_name: 'Portfolio Deployment'
+    # Use the Slack webhook URL
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   notify-failure:
+    # Run this job if the deploy job fails
     needs: deploy
     if: failure()
+    # Use the slack notification workflow
     uses: ./.github/workflows/slack.yml
+    # Set the status and workflow name
     with:
       status: 'failure'
       workflow_name: 'Portfolio Deployment'
+    # Use the Slack webhook URL
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
