@@ -53,6 +53,12 @@ jobs:
             sudo rm -rf /var/www/html/*
             # Move new files to /var/www/html
             sudo mv * /var/www/html
+            # Set permissions for the web server
+            sudo chown -R www-data:www-data /var/www/html
+            sudo chmod -R 755 /var/www/html
+            # Restart Apache to apply changes
+            sudo systemctl restart apache2
+            echo "Deployment completed successfully!"
 
 
 
