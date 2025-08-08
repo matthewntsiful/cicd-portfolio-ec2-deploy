@@ -45,22 +45,63 @@ This project demonstrates a complete CI/CD pipeline that automatically deploys a
 
 ## 🏗️ Architecture
 
+```mermaid
+flowchart TD
+    subgraph Developer
+        A[Local Development] -->|Push Code| B[GitHub Repository]
+    end
+
+    subgraph GitHub_Actions[GitHub Actions]
+        B --> C{Main Branch Push}
+        C --> D[Checkout Code]
+        D --> E[Install Dependencies]
+        E --> F[Build Assets]
+        F --> G[SSH into EC2]
+        G --> H[Deploy Files]
+        H --> I[Configure Apache]
+        I --> J[Restart Services]
+    end
+
+    subgraph AWS_EC2[AWS EC2]
+        J --> K[Apache Web Server]
+        K --> L[Portfolio Website]
+        K --> M[.htaccess Rules]
+        K --> N[Security Headers]
+    end
+
+    subgraph Notifications
+        C -->|Status| O[Slack Channel]
+        J -->|Status| O
+    end
+
+    style Developer fill:#f9f,stroke:#333,stroke-width:2px
+    style GitHub_Actions fill:#bbf,stroke:#333,stroke-width:2px
+    style AWS_EC2 fill:#bfb,stroke:#333,stroke-width:2px
+    style Notifications fill:#fbb,stroke:#333,stroke-width:2px
 ```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Developer     │    │   GitHub Actions │    │   AWS EC2       │
-│                 │    │                  │    │                 │
-│ Push to main ───┼───▶│ 1. Checkout code │    │ Apache Server   │
-│                 │    │ 2. Deploy files  │───▶│ Portfolio Site  │
-│                 │    │ 3. Configure     │    │ CORS Enabled    │
-│                 │    │ 4. Notify Slack  │    │                 │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-                                │
-                                ▼
-                       ┌─────────────────┐
-                       │ Slack Channel   │
-                       │ Notifications   │
-                       └─────────────────┘
-```
+
+### Components:
+
+1. **Developer Workflow**
+   - Local development and code changes
+   - Git version control and push to GitHub
+
+2. **CI/CD Pipeline (GitHub Actions)**
+   - Automated testing
+   - Build process
+   - Secure deployment to EC2 via SSH
+   - Configuration management
+
+3. **AWS Infrastructure**
+   - EC2 instance running Ubuntu
+   - Apache web server
+   - Security configurations
+   - SSL/TLS (if configured)
+
+4. **Monitoring & Notifications**
+   - Real-time Slack notifications
+   - Deployment status updates
+   - Error alerts
 
 ## 📋 Prerequisites
 
